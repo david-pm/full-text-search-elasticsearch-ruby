@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+$:.unshift(File.join(File.dirname(__FILE__), 'lib'))
+
+require 'elasticsearch'
+require 'config'
+
+puts CLIENT.indices.create(index: INDEX_NAME, **MAPPING)
+
+
