@@ -3,7 +3,16 @@ $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
 require 'elasticsearch'
 require 'config'
+require 'irb'
 
-puts CLIENT.indices.create(index: INDEX_NAME, **MAPPING)
-
-
+def index
+  return 'index already exists' if index_exists?
+  CLIENT.indices.create(index: INDEX_NAME, **MAPPING)
+end
+def delete
+  CLIENT.indices.delete(index: INDEX_NAME) if index_exists?
+end
+def index_exists?
+  CLIENT.indices.exists?(index: INDEX_NAME)
+end
+IRB.start(__FILE__)
