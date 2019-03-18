@@ -1,9 +1,12 @@
 #!/usr/bin/env ruby
 $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
-require 'elasticsearch'
-require 'config'
 require 'irb'
+require 'elasticsearch'
+
+require 'config'
+require 'book_parser'
+require 'book_downloader'
 
 def index
   return 'index already exists' if index_exists?
@@ -14,5 +17,11 @@ def delete
 end
 def index_exists?
   CLIENT.indices.exists?(index: INDEX_NAME)
+end
+def war_and_peace
+  raw_book = BookDownloader.new.get_book
+  parser   = BookParser.new(raw_book)
+  parser.call
+  puts parser.books
 end
 IRB.start(__FILE__)
