@@ -1,6 +1,6 @@
 require 'httparty'
 
-class BookDownloader
+class Downloader
   WAR_AND_PEACE = 'https://www.gutenberg.org/files/2600/2600-0.txt'
 
   def get_book
