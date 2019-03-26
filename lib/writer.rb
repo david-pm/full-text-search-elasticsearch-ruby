@@ -1,26 +1,19 @@
+# frozen_string_literal: true
 require 'config'
 require 'parser'
+require 'indexer'
 require 'downloader'
 
 class Writer
-  attr_reader :parser
+  attr_reader :parser, :indexer
 
   def initialize
-    @parser = Parser.new(Downloader.new.get_book).tap(&:call)
-  end
-
-  def create
-    return 'index already exists' if index_exists?
-    puts "creating War and Peace index..."
-    CLIENT.indices.create(index: INDEX_NAME, **MAPPING)
-  end
-
-  def delete
-    CLIENT.indices.delete(index: INDEX_NAME) if index_exists?
+    @indexer = Indexer.new
+    @parser  = Parser.new(Downloader.new.call).tap(&:call)
   end
 
   def upsert
-    create unless index_exists?
+    indexer.create unless indexer.index_exists?
     puts "downloading and parsing War and Peace..."
 
     parser.books.keys.each do |name|
@@ -30,10 +23,6 @@ class Writer
     end
 
     clear
-  end
-
-  def index_exists?
-    CLIENT.indices.exists?(index: INDEX_NAME)
   end
 
   private

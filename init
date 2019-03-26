@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
 # deps
@@ -8,12 +9,26 @@ require 'elasticsearch'
 require 'query'
 require 'writer'
 
+puts
+puts '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ Bienvenue'
+puts 'search options:'
+puts
+puts "search 'something'"
+puts "full_search 'something specific'"
+puts "find 'id'"
+puts
+
 def populate
   Writer.new.upsert
 end
 
 def search(terms)
   Query.new(terms).find_all
+  nil
+end
+
+def full_search(phrase)
+  Query.new(phrase).find_phrase
   nil
 end
 

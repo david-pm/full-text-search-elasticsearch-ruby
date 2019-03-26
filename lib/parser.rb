@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Parser
   EOF_REGEX     = /^End of the Project Gutenberg EBook of War and Peace, by Leo Tolstoy/
   BOOK_REGEX    = /^BOOK\s\w*:\s.*|^\w*\sEPILOGUE:?\s?.*/

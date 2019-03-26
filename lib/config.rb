@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 INDEX_NAME = 'war_and_peace'
 CLIENT = Elasticsearch::Client.new(host: 'localhost', port: '9200')
 MAPPING = {

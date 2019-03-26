@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Printer
   attr_reader :term
   def initialize(term)
@@ -17,6 +18,10 @@ class Printer
     puts
     puts "#{result[:contents]}"
     puts
+  end
+
+  def basic(result)
+    header(result)
   end
 
   private
